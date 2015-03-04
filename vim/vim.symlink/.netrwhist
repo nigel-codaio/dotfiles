@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/stephen.marquis/Documents/mobile/Localization'
+let g:netrw_dirhist_2='/Users/stephen.marquis/Documents/mobile/Assets/wdlocalization'
+let g:netrw_dirhist_3='/Users/stephen.marquis/Documents/mobile/shared'
+let g:netrw_dirhist_4='/Users/stephen.marquis/Documents/mobile/bamboo'
+let g:netrw_dirhist_5='/Users/stephen.marquis/Documents/TestApplication/.idea'
+let g:netrw_dirhist_6='/Users/stephen.marquis/.dotfiles/python'

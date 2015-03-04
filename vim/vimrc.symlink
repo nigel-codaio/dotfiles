@@ -1,4 +1,83 @@
-syntax on
+filetype on
+filetype plugin on
+filetype indent on
+runtime ftplugin/man.vim
+set tags+=~/.vim/systags
+set laststatus=2
+set directory=~/.vim/swapfiles//
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+syntax on 
+map <silent> ,b :call BufferList()<CR>
+map <silent> ,d :NERDTreeToggle<CR>
+imap ,, <Esc>
+imap <Nul> <C-X><C-O>
+
+noremap <Space> <PageDown>
+noremap - <PageUp>
+map grc :execute "vimgrep /" . expand("<cword>") . "/j **/*.c"<CR>
+map grh :execute "vimgrep /" . expand("<cword>") . "/j **/*.h"<CR>
+map ,v :sp ~/.vimrc<CR>
+map <silent> ,V :source ~/.vimrc<CR>
+set background=dark
+set hidden
+set autoindent
+set copyindent
+set number
+set shiftwidth=4
+set shiftround
+set tabstop=4
+set diffopt=filler,vertical
+set foldcolumn=1
+autocmd Syntax * setlocal foldmethod=syntax
+autocmd Syntax * normal zR
+
+let perl_fold = 1
+
+nnoremap <C-H> :Hexmode<CR>
+inoremap <C-H> <Esc>:Hexmode<CR>
+vnoremap <C-H> <C-U>Hexmode<CR>
+
+" ex command for toggling hex mode - define mapping if desired
+command! -bar Hexmode call ToggleHex()
+
+" helper function to toggle hex mode
+function! ToggleHex()
+	" hex mode should be considered a read-only operation
+	" save values for modified and read-only for restoration later,
+	" and clear the read-only flag for now
+	let l:modified=&mod
+	let l:oldreadonly=&readonly
+	let &readonly=0
+	let l:oldmodifiable=&modifiable
+	let &modifiable=1
+	if !exists("b:editHex") || !b:editHex
+		" save old options
+		let b:oldft=&ft
+		let b:oldbin=&bin
+		" set new options
+		setlocal binary " make sure it overrides any textwidth, etc.
+		let &ft="xxd"
+		" set status
+		let b:editHex=1
+		" switch to hex editor
+		%!xxd
+	else
+		" restore old options
+		let &ft=b:oldft
+		if !b:oldbin
+			setlocal nobinary
+		endif
+		" set status
+		let b:editHex=0
+		" return to normal editing
+		%!xxd -r
+	endif
+	" restore values for modified and read only state
+	let &mod=l:modified
+	let &readonly=l:oldreadonly
+	let &modifiable=l:oldmodifiable
+endfunction
+
+colorscheme mydesert
+" colorschem desert
+let perl_extended_vars = 1

@@ -1,1 +1,2 @@
-alias ios="open /Applications/Xcode.app/Contents/Applications/iOS\ Simulator.app"
+alias xc='open *.xcode*'
+alias xcw='open *.xcwork*'
