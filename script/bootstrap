@@ -135,6 +135,16 @@ install_dotfiles () {
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
+
+  # Local files, not tracked in the repository
+  local local_dotfiles="$DOTFILES_ROOT/local-dotfiles"
+  if [ -d "$local_dotfiles" ]; then
+	  for src in $(find "$local_dotfiles" -maxdepth 2 -name '*.symlink')
+	  do
+		  dst="$HOME/.$(basename "${src%.*}")"
+		  link_file "$src" "$dst"
+	  done
+  fi
 }
 
 setup_gitconfig
