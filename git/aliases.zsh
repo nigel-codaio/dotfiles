@@ -4,6 +4,7 @@ alias gitonelineall="git log --graph --decorate --all --pretty=format:\"%C(auto)
 alias gitpretty="git log --graph --decorate --name-status"
 alias gitprettyall="git log --graph --decorate --name-status --all"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
+alias gitpush="git push origin HEAD"
 
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
 function gitcleanup() { git branch -d $(gitmerged) }
