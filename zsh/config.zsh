@@ -49,8 +49,6 @@ setopt complete_aliases
 
 zle -N newtab
 
-autoload -U compinit
-compinit
 bindkey '^r' history-incremental-search-backward
 bindkey ' ' magic-space    # also do history expansion on space
 bindkey -e
