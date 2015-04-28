@@ -8,7 +8,7 @@ alias gitpush="git push origin HEAD"
 
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
-function gitcleanup() { git branch -d $(gitmerged) }
+function gitcleanup() { git branch -d $(gitmerged); git remote prune origin }
 function gitshowsvn() { git show `git svn find-rev r$1` }
 function gitsvnrebase() {
 	if [[ $1 != "-l" ]]; then
