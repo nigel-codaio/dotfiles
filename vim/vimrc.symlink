@@ -19,6 +19,7 @@ map grh :execute "vimgrep /" . expand("<cword>") . "/j **/*.h"<CR>
 map ,v :sp ~/.vimrc<CR>
 map <silent> ,V :source ~/.vimrc<CR>
 set background=dark
+set backspace=indent,eol,start
 set hidden
 set autoindent
 set copyindent
