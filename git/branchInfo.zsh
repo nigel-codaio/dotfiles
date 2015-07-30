@@ -4,16 +4,14 @@ function parse_git_branch() {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
-git_compute_branch() {
+function git_compute_branch() {
 	export __CURRENT_GIT_BRANCH="$(parse_git_branch)"
 	export __CURRENT_GIT_BRANCH_INVALID=
 }
 
-git_invalidate_branch() {
+function git_invalidate_branch() {
 	export __CURRENT_GIT_BRANCH_INVALID=1
 }
-
-__CURRENT_GIT_BRANCH="$(parse_git_branch)"
 
 typeset -ga chpwd_functions
 typeset -ga preexec_functions
@@ -30,7 +28,11 @@ chpwd_update_git_branch() {
 	git_invalidate_branch
 }
 
-git_get_branch() {
+function git_get_branch() {
 	test -n "$__CURRENT_GIT_BRANCH_INVALID" && git_compute_branch
 	echo $__CURRENT_GIT_BRANCH
 }
+
+
+git_compute_branch
+
