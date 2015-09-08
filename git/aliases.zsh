@@ -9,7 +9,7 @@ alias gitwip="git commit -a -m 'WIP DO NOT COMMIT'"
 
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
-function gitcleanup() { git branch -d $(gitmerged); git remote prune origin }
+function gitcleanup() { echo "$(gitmerged)" | xargs -n 1 git branch -d; git remote prune origin }
 function gitshowsvn() { git show `git svn find-rev r$1` }
 function gitsvnrebase() {
 	if [[ $1 != "-l" ]]; then
