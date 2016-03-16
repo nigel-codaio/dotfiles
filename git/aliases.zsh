@@ -21,3 +21,26 @@ function gitsvnrebase() {
 			eval "$entry"
 		done
 }
+
+function gitupdatebases() {
+	git fetch origin
+	basis_branches=('master' 'develop' 'rc')
+	for branch in $basis_branches; do
+		# verify it exists
+		git show-ref --verify --quiet refs/heads/"$branch"
+		if [ $? -ne 0 ]; then
+			continue
+		fi
+
+		# verify it can be fast forwarded
+		git merge-base --is-ancestor "$branch" origin/"$branch"
+		if [ $? -ne 0 ]; then
+			echo "$branch cannot be fast-forwarded to origin/$branch, you'll need to manually update your branch"
+			continue
+		fi
+
+		# Change the branch ref to point to the new one
+		echo "Updating $branch to origin/$branch"
+		git update-ref refs/heads/"$branch" origin/"$branch"
+	done
+}
