@@ -9,7 +9,6 @@ alias gitwip="git commit -a -m 'WIP DO NOT COMMIT'"
 
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
-function gitcleanup() { echo "$(gitmerged)" | xargs -n 1 git branch -d; git remote prune origin }
 function gitshowsvn() { git show `git svn find-rev r$1` }
 function gitsvnrebase() {
 	if [[ $1 != "-l" ]]; then
@@ -25,6 +24,7 @@ function gitsvnrebase() {
 function gitupdatebases() {
 	git fetch origin
 	basis_branches=('master' 'develop' 'rc')
+	rebaseBranch=$1
 	for branch in $basis_branches; do
 		# verify it exists
 		git show-ref --verify --quiet refs/heads/"$branch"
@@ -43,4 +43,25 @@ function gitupdatebases() {
 		echo "Updating $branch to origin/$branch"
 		git update-ref refs/heads/"$branch" origin/"$branch"
 	done
+
+	if [ ! -z "$rebaseBranch" ]; then
+		git rebase develop
+	fi
+}
+
+function gitcleanup() { 
+  echo "=== Cleaning Remote Branch Caches ==="
+  git remote prune origin
+
+  echo "=== Cleaning Local Branches ========="
+  except_branches=('"\*"' 'master' 'develop' 'rc')
+  command="git branch --merged"
+  for branch in $except_branches; do
+	  command="$command | grep -v $branch"
+  done
+  command="$command | xargs -n 1 git branch -d"
+  eval $command
+
+  echo "=== Remaining Branches =============="
+  git branch
 }
