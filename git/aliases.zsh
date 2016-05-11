@@ -7,7 +7,7 @@ alias gitreset="git reset HEAD\^" # convenience function to go back one commit
 alias gitpush="git push origin HEAD"
 alias gitwip="git commit -a -m 'WIP DO NOT COMMIT'"
 
-function gitmergecommit() { git log $1..HEAD --ancestry-path --merges }
+function gitmergecommit() { git log $1..HEAD --ancestry-path --merges --reverse }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
 function gitshowsvn() { git show `git svn find-rev r$1` }
 function gitsvnrebase() {
