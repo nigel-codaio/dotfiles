@@ -27,6 +27,7 @@ set number
 set shiftwidth=4
 set shiftround
 set tabstop=4
+set expandtab
 set diffopt=filler,vertical
 set foldcolumn=1
 autocmd Syntax * setlocal foldmethod=syntax

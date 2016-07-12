@@ -45,7 +45,7 @@ function gitupdatebases() {
 	done
 
 	if [ ! -z "$rebaseBranch" ]; then
-		git rebase develop
+		git rebase $rebaseBranch
 	fi
 }
 
