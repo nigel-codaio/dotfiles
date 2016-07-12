@@ -62,6 +62,20 @@ function gitcleanup() {
   command="$command | xargs -n 1 git branch -d"
   eval $command
 
+  echo "=== Cleaning Local Branches With Empty Merges ==="
+  command="git branch"
+  for branch in $except_branches; do
+	  command="$command | grep -v $branch"
+  done
+  localBranches=(`eval $command`)
+  for branch in $localBranches; do
+      mergeBase=`git merge-base HEAD $branch`
+      git merge-tree "$mergeBase" HEAD "$branch" | read
+      if [ $? -ne 0 ]; then
+          git branch -D $branch
+      fi
+  done
+
   echo "=== Remaining Branches =============="
   git branch
 }
