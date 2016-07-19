@@ -70,7 +70,7 @@ function gitcleanup() {
   localBranches=(`eval $command`)
   for branch in $localBranches; do
       mergeBase=`git merge-base HEAD $branch`
-      git merge-tree "$mergeBase" HEAD "$branch" | read
+      git merge-tree "$mergeBase" HEAD "$branch" | grep -v "changed in both" | grep -v "  base" | grep -v "  our" | grep -v "  their" | read
       if [ $? -ne 0 ]; then
           git branch -D $branch
       fi
