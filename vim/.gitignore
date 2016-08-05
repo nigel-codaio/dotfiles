@@ -1,1 +1,2 @@
-vim.symlink/swapfiles
+vim.symlink/swapfiles/*
+!vim.symlink/swapfiles/.keep
