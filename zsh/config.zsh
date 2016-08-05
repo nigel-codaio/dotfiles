@@ -1,7 +1,9 @@
 fpath=($ZSH/functions $fpath)
 
 autoload -U $ZSH/functions/*(:t)
-autoload -U $ZSH/local-dotfiles/functions/*(:t)
+if [ -d "$ZSH/local-dotfiles/functions" ]; then
+    autoload -U $ZSH/local-dotfiles/functions/*(:t)
+fi
 
 export HISTFILE=$HOME/.zhistory
 export HISTSIZE=10000
