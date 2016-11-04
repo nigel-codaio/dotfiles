@@ -23,12 +23,16 @@ function gitsvnrebase() {
 
 function gitupdatebases() {
 	git fetch origin
-	basis_branches=('master' 'develop' 'rc')
+    basis_branches=($(git for-each-ref --format='%(refname:short)' refs/heads/))
 	rebaseBranch=$1
+	# checkout a temporary branch in case we're currently on a basis branch
+	git checkout -b updatebases_temp
 	for branch in $basis_branches; do
+	    echo "Checking $branch"
 		# verify it exists
 		git show-ref --verify --quiet refs/heads/"$branch"
 		if [ $? -ne 0 ]; then
+		    echo "Not found in refs"
 			continue
 		fi
 
@@ -43,6 +47,8 @@ function gitupdatebases() {
 		echo "Updating $branch to origin/$branch"
 		git update-ref refs/heads/"$branch" origin/"$branch"
 	done
+	git checkout -
+	git branch -d updatebases_temp
 
 	if [ ! -z "$rebaseBranch" ]; then
 		git rebase $rebaseBranch
