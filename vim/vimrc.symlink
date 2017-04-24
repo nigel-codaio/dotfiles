@@ -86,4 +86,5 @@ let perl_extended_vars = 1
 
 call plug#begin()
 Plug 'keith/swift.vim'
+Plug 'scrooloose/nerdtree'
 call plug#end()
