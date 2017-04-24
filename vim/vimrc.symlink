@@ -83,3 +83,7 @@ endfunction
 colorscheme mydesert
 " colorschem desert
 let perl_extended_vars = 1
+
+call plug#begin()
+Plug 'keith/swift.vim'
+call plug#end()
