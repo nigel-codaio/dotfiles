@@ -60,7 +60,7 @@ function gitcleanup() {
   git remote prune origin
 
   echo "=== Cleaning Local Branches ========="
-  except_branches=('"\*"' 'master' 'develop' 'rc')
+  except_branches=('"\*"' '" master$"' '" develop$"' '" rc$"')
   command="git branch --merged"
   for branch in $except_branches; do
 	  command="$command | grep -v $branch"
