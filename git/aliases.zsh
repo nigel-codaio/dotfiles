@@ -22,7 +22,7 @@ function gitsvnrebase() {
 }
 
 function gitupdatebases() {
-    git fetch origin
+    git fetch --all
     basis_branches=($(git for-each-ref --format='%(refname:short)' refs/heads/))
     rebaseBranch=$1
     # checkout a temporary branch in case we're currently on a basis branch
