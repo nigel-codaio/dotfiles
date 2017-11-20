@@ -85,3 +85,9 @@ function gitcleanup() {
     echo "=== Remaining Branches =============="
     git branch
 }
+
+function gitcopybranch() {
+    nameRef=$(git name-rev HEAD --name-only)
+    echo "Copied '$nameRef' to pasteboard!"
+    echo -n "$nameRef" | pbcopy
+}
