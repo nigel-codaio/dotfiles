@@ -1,0 +1,38 @@
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	amend = commit --amend
+	continue = rebase --continue
+	skip = rebase --skip
+[log]
+	date = local
+[color]
+	ui = true
+[diff]
+	tool = vdiff
+[difftool]
+	prompt = false
+[difftool.vdiff]
+	cmd = vim -f -d "\"$LOCAL\"" "\"$REMOTE\"" 
+[merge]
+	tool = fugitive
+[mergetool.fugitive]
+	cmd = vim -f -c "Gdiff" "$MERGED"
+[user]
+	name = Stephen Marquis
+	email = marquissm@gmail.com
+[help]
+	autocorrect = 1
+[rerere]
+	enabled = 1
+[core]
+	trustctime = false
+	ignorecase = false
+	excludesfile = ~/.gitignore
+[credential]
+	helper = osxkeychain
+[push]
+	default = simple
+[rebase]
+	autoStash = true
