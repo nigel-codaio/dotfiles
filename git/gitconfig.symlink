@@ -22,6 +22,9 @@
 [user]
 	name = Stephen Marquis
 	email = marquissm@gmail.com
+# Conditional config for work specific values. gitignored
+[includeIf "gitdir:~/Documents/repos/work/"]
+    path = ~/.work-gitconfig
 [help]
 	autocorrect = 1
 [rerere]
