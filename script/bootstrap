@@ -122,9 +122,17 @@ install_dotfiles () {
 		  link_file "$src" "$dst"
 	  done
   fi
+
+  sleep 1
+  for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -name 'install.sh')
+  do
+      info "Running $src"
+      bash $src
+      success "Finished $src"
+  done
 }
 
 install_dotfiles
 
 echo ''
-echo '  All installed!'
+echo '  All installed! Log out/in to ensure key repeat settings are applied'
