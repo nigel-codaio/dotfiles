@@ -1,14 +1,15 @@
 autoload colors zsh/terminfo
 # Set Apple Terminal.app resume directory
 if [[ $TERM_PROGRAM == "Apple_Terminal" ]] && [[ -z "$INSIDE_EMACS" ]] {
-  function chpwd {
-    local SEARCH=' '
-    local REPLACE='%20'
-    local PWD_URL="file://$HOSTNAME${PWD//$SEARCH/$REPLACE}"
-    printf '\e]7;%s\a' $PWD_URL
-  }
-
-  chpwd
+    update_terminal_cwd() {
+        [[ -t 1 ]] || return # Returns if not a terminal (i.e., a subshell)
+        local SEARCH=' '
+        local REPLACE='%20'
+        local PWD_URL="file://$HOSTNAME${PWD//$SEARCH/$REPLACE}"
+        printf '\e]7;%s\a' $PWD_URL
+    }
+    update_terminal_cwd
+    chpwd_functions+=(update_terminal_cwd)
 }
 
 if [[ "$terminfo[colors]" -ge 8 ]]; then
