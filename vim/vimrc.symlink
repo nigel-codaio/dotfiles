@@ -80,8 +80,7 @@ function! ToggleHex()
 	let &modifiable=l:oldmodifiable
 endfunction
 
-colorscheme mydesert
-" colorschem desert
+colorscheme solarized
 let perl_extended_vars = 1
 
 call plug#begin()
