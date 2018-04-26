@@ -88,4 +88,5 @@ Plug 'keith/swift.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'roblillack/vim-bufferlist'
 Plug 'tpope/vim-fugitive'
+Plug 'unblevable/quick-scope'
 call plug#end()

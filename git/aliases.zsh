@@ -22,36 +22,36 @@ function gitsvnrebase() {
 }
 
 function gitupdatebases() {
-    git fetch --all
-    basis_branches=($(git for-each-ref --format='%(refname:short)' refs/heads/))
-    rebaseBranch=$1
-    # checkout a temporary branch in case we're currently on a basis branch
-    git checkout -b updatebases_temp
-    for branch in $basis_branches; do
-        echo "Checking $branch"
-        # verify it exists
-        git show-ref --verify --quiet refs/heads/"$branch"
-        if [ $? -ne 0 ]; then
-            echo "Not found in refs"
-            continue
-        fi
+     git fetch --all
+     basis_branches=($(git for-each-ref --format='%(refname:short)' refs/heads/))
+     # checkout a temporary branch in case we're currently on a basis branch
+     git checkout -b updatebases_temp
+     for branch in $basis_branches; do
+         echo "Checking $branch"
+         # verify it exists
+         git show-ref --verify --quiet refs/heads/"$branch"
+         if [ $? -ne 0 ]; then
+             echo "Not found in refs"
+             continue
+         fi
+ 
+         # verify it can be fast forwarded
+         git merge-base --is-ancestor "$branch" origin/"$branch"
+         if [ $? -ne 0 ]; then
+             echo "$branch cannot be fast-forwarded to origin/$branch, you'll need to manually update your branch"
+             continue
+         fi
+ 
+         # Change the branch ref to point to the new one
+         echo "Updating $branch to origin/$branch"
+         git update-ref refs/heads/"$branch" origin/"$branch"
+     done
+     git checkout -
+     git branch -d updatebases_temp
 
-        # verify it can be fast forwarded
-        git merge-base --is-ancestor "$branch" origin/"$branch"
-        if [ $? -ne 0 ]; then
-            echo "$branch cannot be fast-forwarded to origin/$branch, you'll need to manually update your branch"
-            continue
-        fi
-
-        # Change the branch ref to point to the new one
-        echo "Updating $branch to origin/$branch"
-        git update-ref refs/heads/"$branch" origin/"$branch"
-    done
-    git checkout -
-    git branch -d updatebases_temp
-
-    if [ ! -z "$rebaseBranch" ]; then
-        git rebase $rebaseBranch
+    if [ "$#" -gt 0 ]; then
+        echo "Running git rebase $@"
+        git rebase "$@"
     fi
 }
 

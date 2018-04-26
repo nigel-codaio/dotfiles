@@ -19,7 +19,7 @@ typeset -ga preexec_functions
 preexec_functions+='preexec_update_git_branch'
 preexec_update_git_branch() {
 	case $2 in 
-		git*) git_invalidate_branch
+		git* | hub*) git_invalidate_branch
 	esac
 }
 
