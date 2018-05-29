@@ -89,4 +89,5 @@ Plug 'scrooloose/nerdtree'
 Plug 'roblillack/vim-bufferlist'
 Plug 'tpope/vim-fugitive'
 Plug 'unblevable/quick-scope'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
