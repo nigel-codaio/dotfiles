@@ -6,7 +6,6 @@ alias gitprettyall="git log --graph --decorate --name-status --all"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
 alias gitpush="git push origin HEAD"
 alias gitwip="git commit -a -m 'WIP DO NOT COMMIT'"
-alias gitbootstrap="gitupdatebases; git co master; gitcleanup"
 
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges --reverse }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
@@ -92,3 +91,13 @@ function gitcopybranch() {
     echo "Copied '$nameRef' to pasteboard!"
     echo -n "$nameRef" | pbcopy
 }
+
+function gitbootstrap() {
+    branchName=$1
+    gitupdatebases
+    git co master
+    gitcleanup
+    if [ -n "$1" ]; then
+        git co -b "$1"
+    fi
+} 
