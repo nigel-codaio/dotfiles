@@ -33,9 +33,12 @@
 	trustctime = false
 	ignorecase = false
 	excludesfile = ~/.gitignore
+	pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 [credential]
 	helper = osxkeychain
 [push]
 	default = simple
 [rebase]
 	autoStash = true
+[interactive]
+    diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
