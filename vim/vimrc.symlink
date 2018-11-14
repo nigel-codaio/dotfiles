@@ -24,9 +24,9 @@ set hidden
 set autoindent
 set copyindent
 set number
-set shiftwidth=4
+set shiftwidth=2
 set shiftround
-set tabstop=4
+set tabstop=2
 set expandtab
 set diffopt=filler,vertical
 set foldcolumn=1
