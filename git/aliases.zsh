@@ -86,6 +86,18 @@ function gitcleanup() {
     git branch
 }
 
+function gitmergebase() {
+    branchName=$1
+    if [ -z "$branchName" ]; then
+        echo "Error: Need to specify a branch to check against"
+        exit
+    fi
+    echo "=== Merge Base With '$branchName' ==="
+    mergeBase=`git merge-base HEAD $branchName`
+    git merge-tree "$mergeBase" HEAD "$branchName"
+}
+
+
 function gitcopybranch() {
     nameRef=$(git name-rev HEAD --name-only)
     echo "Copied '$nameRef' to pasteboard!"
@@ -93,7 +105,6 @@ function gitcopybranch() {
 }
 
 function gitbootstrap() {
-    branchName=$1
     gitupdatebases
     git co master
     gitcleanup
