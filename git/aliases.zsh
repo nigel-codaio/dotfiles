@@ -6,6 +6,7 @@ alias gitprettyall="git log --graph --decorate --name-status --all"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
 alias gitpush="git push origin HEAD"
 alias gitwip="git commit --no-verify -a -m 'WIP DO NOT COMMIT'"
+alias cdroot="cd $(git root)"
 
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges --reverse }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
@@ -81,6 +82,9 @@ function gitcleanup() {
             git branch -D $branch
         fi
     done
+
+    echo "=== Pruning local branches ==="
+    git prune
 
     echo "=== Remaining Branches =============="
     git branch

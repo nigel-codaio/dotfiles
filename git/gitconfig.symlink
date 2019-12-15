@@ -5,6 +5,7 @@
 	amend = commit --amend
 	continue = rebase --continue
 	skip = rebase --skip
+	root = rev-parse --show-toplevel
 [log]
 	date = local
 [color]
