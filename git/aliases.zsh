@@ -7,6 +7,7 @@ alias gitpush="git push origin HEAD"
 alias gitwip="git commit --no-verify -a -m 'WIP DO NOT COMMIT'"
 alias cdroot="cd $(git root)"
 
+# Todo Make these legit 'aliases', with inline shell scripts
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges --reverse }
 function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
 function gitshowsvn() { git show `git svn find-rev r$1` }
@@ -115,3 +116,14 @@ function gitbootstrap() {
         git co -b "$1"
     fi
 } 
+
+function gitnewbranch() {
+    branchName=$1
+    if [ -z "$branchName" ]; then
+        echo "Error: Need to specify a branch name"
+        exit
+    fi
+  
+    git co -b "$1" master
+}
+    
