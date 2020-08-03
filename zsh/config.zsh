@@ -45,10 +45,6 @@ setopt   autopushd pushdminus extendedglob rcquotes mailwarning
 setopt   prompt_subst
 unsetopt bgnice autoparamslash
 
-# don't expand aliases _before_ completion has finished
-#   like: git comm-[tab]
-setopt complete_aliases
-
 zle -N newtab
 
 bindkey '^r' history-incremental-search-backward
