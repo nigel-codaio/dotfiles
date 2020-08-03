@@ -1,0 +1,7 @@
+#compdef repos
+
+_repos() {
+  repoPath="$HOME/src/repos/"
+  _files -W "$repoPath" -/
+
+}
