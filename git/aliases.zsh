@@ -94,7 +94,7 @@ function gitmergebase() {
     branchName=$1
     if [ -z "$branchName" ]; then
         echo "Error: Need to specify a branch to check against"
-        exit
+        return
     fi
     echo "=== Merge Base With '$branchName' ==="
     mergeBase=`git merge-base HEAD $branchName`
@@ -121,7 +121,7 @@ function gitnewbranch() {
     branchName=$1
     if [ -z "$branchName" ]; then
         echo "Error: Need to specify a branch name"
-        exit
+        return
     fi
   
     git co -b "$1" master
