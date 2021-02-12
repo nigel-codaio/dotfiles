@@ -61,7 +61,7 @@ function gitcleanup() {
     git remote prune origin
 
     echo "=== Cleaning Local Branches ========="
-    except_branches=('"\*"' '" master$"' '" develop$"' '" rc$"')
+    except_branches=('"\*"' '" main$"')
     command="git branch --merged"
     for branch in $except_branches; do
         command="$command | grep -v $branch"
@@ -110,7 +110,7 @@ function gitcopybranch() {
 
 function gitbootstrap() {
     gitupdatebases
-    git co master
+    git co main
     gitcleanup
     if [ -n "$1" ]; then
         git co -b "$1"
@@ -124,6 +124,6 @@ function gitnewbranch() {
         return
     fi
   
-    git co -b "$1" master
+    git co -b "$1" main
 }
     
